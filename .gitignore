@@ -25,5 +25,6 @@ package-lock.json
 secure.json
 
 pool.csv
+ranking.csv
 result.csv
 .env

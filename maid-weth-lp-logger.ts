@@ -10,7 +10,7 @@ export const provider = new ethers.providers.InfuraProvider("homestead", process
 const LP_TOKEN = "0xc7175038323562cB68E4BbdD379E9fE65134937f";
 const FROM_BLOCK = 12974518;
 const TO_BLOCK = parseInt(process.env.TO_BLOCK);
-const BLACKLIST = ["0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50", "0x21e5d7ab4bbdcFc25cb09C8948e6485729246b0a"];
+const BLACKLIST = [LP_TOKEN, "0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50", "0x21e5d7ab4bbdcFc25cb09C8948e6485729246b0a"];
 
 async function start() {
     const token = new ethers.Contract(LP_TOKEN, abi, provider);
@@ -22,7 +22,7 @@ async function start() {
             content += to + "," + event.blockNumber + "," + ethers.utils.formatEther(event.args.value) + "\n";
         }
     })
-    const burnFilter = token.filters.Transfer(null, ethers.constants.AddressZero, null);
+    const burnFilter = token.filters.Transfer(null, LP_TOKEN, null);
     (await token.queryFilter(burnFilter, FROM_BLOCK, TO_BLOCK)).forEach(event => {
         const { from } = event.args;
         if (from != ethers.constants.AddressZero && !BLACKLIST.includes(from)) {

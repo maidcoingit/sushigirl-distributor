@@ -28,6 +28,7 @@ for (const [account, score] of Object.entries(scores)) {
     series.push({ account, score });
 }
 series = series.sort((a, b) => b.score - a.score);
+fs.writeFileSync("ranking.csv", Papaparse.unparse(series));
 
 const owned: { [account: string]: boolean } = {};
 const sushiGirlOwners: { [sushiGirlId: number]: string } = {};
