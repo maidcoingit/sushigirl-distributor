@@ -23,3 +23,7 @@ package-lock.json
 
 # secure
 secure.json
+
+pool.csv
+result.csv
+.env

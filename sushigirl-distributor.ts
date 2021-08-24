@@ -1,9 +1,12 @@
 import fs from "fs";
 import * as Papaparse from "papaparse";
 import SkyUtil from "skyutil";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const SUSHI_GIRL_COUNT = 33;
-const SNAPSHOT_BLOCK_NUMBER = 13086139;
+const SNAPSHOT_BLOCK_NUMBER = parseInt(process.env.TO_BLOCK);
 
 const scores: { [account: string]: number } = {};
 let totalScore = 0;
@@ -42,7 +45,7 @@ SkyUtil.repeat(SUSHI_GIRL_COUNT, (sushiGirlId) => {
                 }
                 break;
             }
-        };
+        }
     };
     retry();
 });
